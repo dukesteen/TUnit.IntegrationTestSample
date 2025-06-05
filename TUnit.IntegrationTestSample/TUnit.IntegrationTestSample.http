@@ -1,0 +1,6 @@
+@TUnit.IntegrationTestSample_HostAddress = http://localhost:5197
+
+GET {{TUnit.IntegrationTestSample_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
