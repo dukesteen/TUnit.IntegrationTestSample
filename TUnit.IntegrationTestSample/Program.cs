@@ -8,13 +8,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-var dataSourceBuilder = new NpgsqlDataSourceBuilder(builder.Configuration["DbContextOptions:ConnectionString"]);
-_ = dataSourceBuilder.EnableDynamicJson();
-var dataSource = dataSourceBuilder.Build();
+// var dataSourceBuilder = new NpgsqlDataSourceBuilder(builder.Configuration["DbContextOptions:ConnectionString"]);
+// _ = dataSourceBuilder.EnableDynamicJson();
+// var dataSource = dataSourceBuilder.Build();
 
 builder.Services.AddDbContext<AppDbContext>(c =>
 {
-	c.UseNpgsql(dataSource);
+	c.UseSqlite("db.sql");
 });
 builder.Services.AddTUnitIntegrationTestSampleHandlers();
 builder.Services.AddTUnitIntegrationTestSampleBehaviors();
@@ -28,7 +28,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseRouting();
 _ = app.UseEndpoints(endpoints =>
 	{
 		_ = endpoints.MapTUnitIntegrationTestSampleEndpoints();
